@@ -5,6 +5,8 @@ import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:ui_challenge_animation/constants/assets.dart' as assets;
 import 'package:ui_challenge_animation/widgets/network_image.dart';
 
+import 'detail_2.dart';
+
 // Hero Animation
 
 List<String> images = [
@@ -27,11 +29,27 @@ class MyAnimation2 extends StatefulWidget {
   _MyAnimation2State createState() => _MyAnimation2State();
 }
 
-class _MyAnimation2State extends State<MyAnimation2> {
+class _MyAnimation2State extends State<MyAnimation2>
+    with SingleTickerProviderStateMixin {
   int currentIndex = 0;
   int prevIndex = 0;
   final SwiperController _swiperController = SwiperController();
   AnimationController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: const Duration(seconds: 1),
+      vsync: this,
+    )..forward();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,6 +78,15 @@ class _MyAnimation2State extends State<MyAnimation2> {
             child: Swiper(
               physics: BouncingScrollPhysics(),
               loop: false,
+              controller: _swiperController,
+              onIndexChanged: (index) {
+                _controller.reverse();
+                setState(() {
+                  prevIndex = currentIndex;
+                  currentIndex = index;
+                  _controller.forward();
+                });
+              },
               viewportFraction: 0.8, // get 1/3 next item
               itemCount: 3,
               itemBuilder: (context, index) {
@@ -69,7 +96,17 @@ class _MyAnimation2State extends State<MyAnimation2> {
                     children: <Widget>[
                       Expanded(
                         child: GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                PageRouteBuilder(
+                                    transitionDuration:
+                                        Duration(milliseconds: 500),
+                                    pageBuilder: (_, __, ___) =>
+                                        Animation2Detail(
+                                          index: index,
+                                        )));
+                          },
                           child: Hero(
                             tag: "image$index",
                             child: Container(
@@ -105,7 +142,17 @@ class _MyAnimation2State extends State<MyAnimation2> {
             children: <Widget>[
               AnimatedOpacity(
                 opacity: currentIndex == 0 ? 1 : 0,
-                child: Text('hEEE'),
+                child: _buildDesc(0),
+                duration: Duration(seconds: 1),
+              ),
+              AnimatedOpacity(
+                opacity: currentIndex == 1 ? 1 : 0,
+                child: _buildDesc(1),
+                duration: Duration(seconds: 1),
+              ),
+              AnimatedOpacity(
+                opacity: currentIndex == 2 ? 1 : 0,
+                child: _buildDesc(2),
                 duration: Duration(seconds: 1),
               ),
             ],
@@ -115,7 +162,6 @@ class _MyAnimation2State extends State<MyAnimation2> {
     );
   }
 
-// TODO: implement here !!!
   Widget _buildDesc(int index) {
     return Container(
       width: double.infinity,
@@ -129,8 +175,37 @@ class _MyAnimation2State extends State<MyAnimation2> {
             tag: "title$index",
             child: Material(
               type: MaterialType.transparency,
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width,
+                child: Text(
+                  dummy[index]["title"],
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color: Theme.of(context).primaryColor,
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
             ),
           ),
+          SizedBox(height: 10.0),
+          Hero(
+              tag: "price$index",
+              child: Material(
+                type: MaterialType.transparency,
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  child: Text(
+                    dummy[index]["price"],
+                    textAlign: TextAlign.center,
+                    style:
+                        TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold),
+                  ),
+                ),
+              )),
+          SizedBox(
+            height: 20.0,
+          )
         ],
       ),
     );

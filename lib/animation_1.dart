@@ -57,7 +57,7 @@ class _MyAnimation1State extends State<MyAnimation1> {
               child: Column(
                 children: <Widget>[
                   Container(
-                    height: 190.0,
+                    height: 200.0,
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.only(
@@ -68,7 +68,7 @@ class _MyAnimation1State extends State<MyAnimation1> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         const SizedBox(
-                          height: 70.0,
+                          height: 90.0,
                         ),
                         Text(
                           "Awesome and simple app bar hiding animation",
@@ -117,7 +117,7 @@ class _MyAnimation1State extends State<MyAnimation1> {
               left: 0,
               right: 0,
               child: Container(
-                height: 80.0,
+                height: 110.0,
                 padding:
                     const EdgeInsets.only(left: 50, top: 25.0, right: 20.0),
                 alignment: Alignment.centerLeft,
@@ -143,7 +143,7 @@ class _MyAnimation1State extends State<MyAnimation1> {
               ),
             ),
             SizedBox(
-              height: 80.0,
+              height: 90.0,
               child: AppBar(
                 iconTheme: IconThemeData(color: Colors.black),
                 elevation: 0,
