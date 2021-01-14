@@ -5,7 +5,7 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView.builder(
-        itemCount: 4,
+        itemCount: 5,
         itemBuilder: (context, index) {
           return ListTile(
             title: _buildText(index),
@@ -31,6 +31,9 @@ class MyHomePage extends StatelessWidget {
       case 3:
         _title = 'Bottom Bar Animation';
         break;
+      case 4:
+        _title = 'Animated List';
+        break;
       default:
         break;
     }
@@ -50,6 +53,9 @@ class MyHomePage extends StatelessWidget {
         break;
       case 3:
         Navigator.pushNamed(context, '/four');
+        break;
+      case 4:
+        Navigator.pushNamed(context, '/five');
         break;
       default:
         break;

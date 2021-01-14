@@ -4,6 +4,7 @@ import 'package:ui_challenge_animation/animation_3.dart';
 import 'package:ui_challenge_animation/animation_4.dart';
 
 import 'animation_2/animation_2.dart';
+import 'animation_5.dart';
 import 'home_page.dart';
 
 void main() => runApp(MyApp());
@@ -19,7 +20,8 @@ class MyApp extends StatelessWidget {
         '/first': (context) => MyAnimation1(),
         '/second': (context) => MyAnimation2(),
         '/third': (context) => MyAnimation3(),
-        '/four': (context) => MyAnimation4()
+        '/four': (context) => MyAnimation4(),
+        '/five': (context) => MyAnimation5()
       },
     );
   }
